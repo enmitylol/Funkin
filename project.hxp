@@ -822,28 +822,7 @@ class Project extends HXProject {
 	 * @param version The version of the library to add. Optional.
 	 */
 	public function addHaxelib(name:String, version:String = ""):Void {
-		var haxelib = new Haxelib(name, version);
-
-		if (!defines.exists(haxelib.name)) {
-			defines.set(haxelib.name, Std.string(Haxelib.getVersion(haxelib)));
-		}
-
 		this.haxelibs.push(haxelib);
-
-		var includeProject = HXProject.fromHaxelib(haxelib, defines);
-
-		if (includeProject != null)
-		{
-			for (ndll in includeProject.ndlls)
-			{
-				if (ndll.haxelib == null)
-				{
-					ndll.haxelib = haxelib;
-				}
-			}
-
-			merge(includeProject);
-		}
 	}
 
 	/**

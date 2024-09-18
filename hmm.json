@@ -18,8 +18,8 @@
       "name": "flixel",
       "type": "git",
       "dir": null,
-      "ref": "f2b090d6c608471e730b051c8ee22b8b378964b1",
-      "url": "https://github.com/FunkinCrew/flixel"
+      "ref": "logVolume",
+      "url": "https://github.com/FunkinDroidTeam/flixel"
     },
     {
       "name": "flixel-addons",

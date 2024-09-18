@@ -233,9 +233,6 @@ class Project extends HXProject {
 	public function new() {
 		super();
 
-	  if (isAndroid())
-    	configureAndroidConfig();
-
 		flair();
 		configureApp();
 
@@ -331,6 +328,10 @@ class Project extends HXProject {
 			this.window.resizable = false;
 			this.window.width = 0;
 			this.window.height = 0;
+		}
+
+		if (isAndroid()) {
+			this.excludeArchitectures.push(Architecture.ARMV7);
 		}
 	}
 
@@ -485,19 +486,6 @@ class Project extends HXProject {
 	}
 
   /**
-   * Setup required configuration for Android target.
-   */
-  function configureAndroidConfig() {
-		config.push("android.permission", "android.permission.WAKE_LOCK", true);
-		config.push("android.permission", "android.permission.INTERNET", true);
-		config.push("android.permission", "android.permission.VIBRATE", true);
-		config.push("android.permission", "android.permission.ACCESS_NETWORK_STATE", true);
-		config.push("android.permission", "android.permission.READ_EXTERNAL_STORAGE", true);
-		config.push("android.permission", "android.permission.WRITE_EXTERNAL_STORAGE", true);
-		config.push("android.permission", "android.permission.MANAGE_EXTERNAL_STORAGE", true);
-  }
-
-  /**
    * Set compilation flags which are not feature flags.
    */
   function configureCompileDefines() {
@@ -603,8 +591,8 @@ class Project extends HXProject {
 
   function configureHaxelibs() {
 		// Don't enforce
-    addHaxelib('lime'); // Game engine backend
-    addHaxelib('openfl'); // Game engine backend
+    // addHaxelib('lime'); // Game engine backend
+    // addHaxelib('openfl'); // Game engine backend
 
     addHaxelib('flixel'); // Game engine
 
@@ -634,7 +622,7 @@ class Project extends HXProject {
       addHaxelib('hxvlc'); // Video playback
     }
 
-    if (isMobile())
+    if (isAndroid())
        addHaxelib('extension-androidtools'); // Android Functions
 
 		if (FEATURE_DISCORD_RPC.isEnabled(this)) {

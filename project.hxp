@@ -331,7 +331,7 @@ class Project extends HXProject {
 		}
 
 		if (isAndroid()) {
-			excludeArchitectures.push(Architecture.ARMV7);
+			this.excludeArchitectures.push(Architecture.ARMV7);
 		}
 	}
 
@@ -822,7 +822,7 @@ class Project extends HXProject {
 	 * @param version The version of the library to add. Optional.
 	 */
 	public function addHaxelib(name:String, version:String = ""):Void {
-		this.haxelibs.push(haxelib);
+		this.haxelibs.push(new Haxelib(name, version));
 	}
 
 	/**

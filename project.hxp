@@ -587,8 +587,8 @@ class Project extends HXProject {
 
   function configureHaxelibs() {
 		// Don't enforce
-    addHaxelib('lime'); // Game engine backend
-    addHaxelib('openfl'); // Game engine backend
+    // addHaxelib('lime'); // Game engine backend
+    // addHaxelib('openfl'); // Game engine backend
 
     addHaxelib('flixel'); // Game engine
 

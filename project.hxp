@@ -329,6 +329,10 @@ class Project extends HXProject {
 			this.window.width = 0;
 			this.window.height = 0;
 		}
+
+		if (isAndroid()) {
+			excludeArchitectures.push(Architecture.ARMV7);
+		}
 	}
 
 	/**

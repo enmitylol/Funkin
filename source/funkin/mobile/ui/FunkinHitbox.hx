@@ -11,6 +11,7 @@ import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSignal;
 import funkin.graphics.shaders.HSVShader;
 import funkin.mobile.input.ControlsHandler;
+import funkin.mobile.input.PreciseInputHandler;
 import funkin.mobile.ui.FunkinButton;
 import funkin.play.notes.NoteSprite;
 import openfl.display.BitmapData;
@@ -114,10 +115,8 @@ class FunkinHint extends FunkinButton
    */
   public override function destroy():Void
   {
+    if (alphaTween != null) alphaTween = FlxDestroyUtil.destroy(alphaTween);
     super.destroy();
-
-    if (alphaTween != null)
-      alphaTween = FlxDestroyUtil.destroy(alphaTween);
   }
 }
 
@@ -222,10 +221,10 @@ class FunkinHitbox extends FlxTypedSpriteGroup<FunkinHint>
    */
   public override function destroy():Void
   {
+    PreciseInputHandler.clearHints();
     if (trackedInputs != null && trackedInputs.length > 0) ControlsHandler.removeCachedInput(PlayerSettings.player1.controls, trackedInputs);
 
+    // hints = FlxDestroyUtil.destroyArray(hints);
     super.destroy();
-
-    hints = FlxDestroyUtil.destroyArray(hints);
   }
 }

@@ -432,8 +432,8 @@ class CharSelectSubState extends MusicBeatSubState
           onLoad: function() {
             @:privateAccess
             gfChill.analyzer = new SpectralAnalyzer(FlxG.sound.music._channel.__audioSource, 7, 0.1);
-            #if desktop
-            // On desktop it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
+            #if !web
+            // On native it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
             // So we want to manually change it!
             @:privateAccess
             gfChill.analyzer.fftN = 512;
@@ -575,8 +575,8 @@ class CharSelectSubState extends MusicBeatSubState
               onLoad: function() {
                 @:privateAccess
                 gfChill.analyzer = new SpectralAnalyzer(FlxG.sound.music._channel.__audioSource, 7, 0.1);
-                #if desktop
-                // On desktop it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
+                #if !web
+                // On native it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
                 // So we want to manually change it!
                 @:privateAccess
                 gfChill.analyzer.fftN = 512;

@@ -429,9 +429,9 @@ class CharSelectSubState extends MusicBeatSubState
     touchBuddy = new FlxSprite().makeGraphic(10, 10, FlxColor.GREEN);
     touchBuddy.cameras = [charSelectCam]; // this is stupid but it works.
 
-    addBackButton(FlxG.width * 0.96, FlxG.height * 0.84, FlxColor.WHITE, goBack);
+    //addBackButton(FlxG.width * 0.96, FlxG.height * 0.84, FlxColor.WHITE, goBack);
 
-    FlxTween.tween(backButton, {x: 824}, FlxG.random.float(0.5, 0.95), {ease: FlxEase.backOut});
+    //FlxTween.tween(backButton, {x: 824}, FlxG.random.float(0.5, 0.95), {ease: FlxEase.backOut});
     #end
   }
 

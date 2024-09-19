@@ -1422,7 +1422,9 @@ class FreeplayState extends MusicBeatSubState
     // }
     #end // ^<-- FEATURE_DEBUG_FUNCTIONS
 
-    if (controls.FREEPLAY_CHAR_SELECT && !busy)
+    if (controls.FREEPLAY_CHAR_SELECT 
+        #if mobile || TouchUtil.overlapsComplex(dj) && TouchUtil.justPressed #end 
+        && !busy)
     {
       tryOpenCharSelect();
     }

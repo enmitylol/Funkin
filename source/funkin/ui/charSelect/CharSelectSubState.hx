@@ -36,6 +36,10 @@ import funkin.util.FramesJSFLParser;
 import funkin.util.FramesJSFLParser.FramesJSFLInfo;
 import funkin.util.FramesJSFLParser.FramesJSFLFrame;
 import funkin.graphics.FunkinSprite;
+#if mobile
+import funkin.mobile.util.TouchUtil;
+import funkin.mobile.util.SwipeUtil;
+#end
 
 class CharSelectSubState extends MusicBeatSubState
 {
@@ -87,6 +91,10 @@ class CharSelectSubState extends MusicBeatSubState
 
   var bopInfo:FramesJSFLInfo;
   var blackScreen:FunkinSprite;
+
+  #if mobile
+  var touchBuddy:Null<FlxSprite>;
+  #end
 
   public function new()
   {
@@ -415,6 +423,15 @@ class CharSelectSubState extends MusicBeatSubState
 
       Save.instance.oldChar = true;
     });
+
+    #if mobile
+    touchBuddy = new FlxSprite().makeGraphic(10, 10, FlxColor.GREEN);
+    touchBuddy.cameras = [charSelectCam]; // this is stupid but it works.
+
+    addBackButton(FlxG.width * 0.96, FlxG.height * 0.84, FlxColor.WHITE, goBack);
+
+    FlxTween.tween(backButton, {x: 824}, FlxG.random.float(0.5, 0.95), {ease: FlxEase.backOut});
+    #end
   }
 
   function checkNewChar():Void
@@ -691,35 +708,39 @@ class CharSelectSubState extends MusicBeatSubState
 
     Conductor.instance.update();
 
-    if (controls.UI_UP_R || controls.UI_DOWN_R || controls.UI_LEFT_R || controls.UI_RIGHT_R) selectSound.pitch = 1;
+    #if mobile
+    if (TouchUtil.pressed) touchBuddy.setPosition(TouchUtil.touch.screenX, TouchUtil.touch.screenY);
+    #end
+
+    if (controls.UI_UP_R || controls.UI_DOWN_R || controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || SwipeUtil.swipeUp || SwipeUtil.swipeDown || SwipeUtil.swipeLeft || SwipeUtil.swipeRight #end) selectSound.pitch = 1;
 
     syncAudio(elapsed);
 
     if (!pressedSelect)
     {
-      if (controls.UI_UP) holdTmrUp += elapsed;
-      if (controls.UI_UP_R)
+      if (controls.UI_UP #if mobile || SwipeUtil.swipeUp #end) holdTmrUp += elapsed;
+      if (controls.UI_UP_R #if mobile || SwipeUtil.swipeUp #end)
       {
         holdTmrUp = 0;
         spamUp = false;
       }
 
-      if (controls.UI_DOWN) holdTmrDown += elapsed;
-      if (controls.UI_DOWN_R)
+      if (controls.UI_DOWN #if mobile || SwipeUtil.swipeDown #end) holdTmrDown += elapsed;
+      if (controls.UI_DOWN_R #if mobile || SwipeUtil.swipeDown #end)
       {
         holdTmrDown = 0;
         spamDown = false;
       }
 
-      if (controls.UI_LEFT) holdTmrLeft += elapsed;
-      if (controls.UI_LEFT_R)
+      if (controls.UI_LEFT #if mobile || SwipeUtil.swipeLeft #end) holdTmrLeft += elapsed;
+      if (controls.UI_LEFT_R #if mobile || SwipeUtil.swipeLeft #end)
       {
         holdTmrLeft = 0;
         spamLeft = false;
       }
 
-      if (controls.UI_RIGHT) holdTmrRight += elapsed;
-      if (controls.UI_RIGHT_R)
+      if (controls.UI_RIGHT #if mobile || SwipeUtil.swipeRight #end) holdTmrRight += elapsed;
+      if (controls.UI_RIGHT_R #if mobile || SwipeUtil.swipeRight #end)
       {
         holdTmrRight = 0;
         spamRight = false;
@@ -732,7 +753,7 @@ class CharSelectSubState extends MusicBeatSubState
       if (holdTmrLeft >= initSpam) spamLeft = true;
       if (holdTmrRight >= initSpam) spamRight = true;
 
-      if (controls.UI_UP_P)
+      if (controls.UI_UP_P #if mobile || SwipeUtil.swipeUp #end)
       {
         cursorY -= 1;
         cursorDenied.visible = false;
@@ -741,14 +762,14 @@ class CharSelectSubState extends MusicBeatSubState
 
         selectSound.play(true);
       }
-      if (controls.UI_DOWN_P)
+      if (controls.UI_DOWN_P #if mobile || SwipeUtil.swipeDown #end)
       {
         cursorY += 1;
         cursorDenied.visible = false;
         holdTmrDown = 0;
         selectSound.play(true);
       }
-      if (controls.UI_LEFT_P)
+      if (controls.UI_LEFT_P #if mobile || SwipeUtil.swipeLeft #end)
       {
         cursorX -= 1;
         cursorDenied.visible = false;
@@ -756,7 +777,7 @@ class CharSelectSubState extends MusicBeatSubState
         holdTmrLeft = 0;
         selectSound.play(true);
       }
-      if (controls.UI_RIGHT_P)
+      if (controls.UI_RIGHT_P #if mobile || SwipeUtil.swipeRight #end)
       {
         cursorX += 1;
         cursorDenied.visible = false;
@@ -789,7 +810,7 @@ class CharSelectSubState extends MusicBeatSubState
       gfChill.visible = true;
       curChar = availableChars.get(getCurrentSelected());
 
-      if (!pressedSelect && controls.ACCEPT)
+      if (!pressedSelect && controls.ACCEPT #if mobile || TouchUtil.overlapsComplex(cursor) && TouchUtil.justPressed #end)
       {
         cursorConfirmed.visible = true;
         cursorConfirmed.x = cursor.x - 2;
@@ -847,7 +868,7 @@ class CharSelectSubState extends MusicBeatSubState
 
       gfChill.visible = false;
 
-      if (controls.ACCEPT)
+      if (controls.ACCEPT #if mobile || TouchUtil.overlapsComplex(cursor) && TouchUtil.justPressed #end)
       {
         cursorDenied.visible = true;
         cursorDenied.x = cursor.x - 2;

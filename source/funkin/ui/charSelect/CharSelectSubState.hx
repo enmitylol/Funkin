@@ -720,7 +720,7 @@ class CharSelectSubState extends MusicBeatSubState
     if (!pressedSelect)
     {
       if (controls.UI_UP #if mobile || SwipeUtil.swipeDown #end) holdTmrUp += elapsed;
-      if (controls.UI_UP_R #if mobile || SwipeUtil.swipDown #end)
+      if (controls.UI_UP_R #if mobile || SwipeUtil.swipeDown #end)
       {
         holdTmrUp = 0;
         spamUp = false;

@@ -719,15 +719,15 @@ class CharSelectSubState extends MusicBeatSubState
 
     if (!pressedSelect)
     {
-      if (controls.UI_UP #if mobile || SwipeUtil.swipeUp #end) holdTmrUp += elapsed;
-      if (controls.UI_UP_R #if mobile || SwipeUtil.swipeUp #end)
+      if (controls.UI_UP #if mobile || SwipeUtil.swipeDown #end) holdTmrUp += elapsed;
+      if (controls.UI_UP_R #if mobile || SwipeUtil.swipDown #end)
       {
         holdTmrUp = 0;
         spamUp = false;
       }
 
-      if (controls.UI_DOWN #if mobile || SwipeUtil.swipeDown #end) holdTmrDown += elapsed;
-      if (controls.UI_DOWN_R #if mobile || SwipeUtil.swipeDown #end)
+      if (controls.UI_DOWN #if mobile || SwipeUtil.swipeUp #end) holdTmrDown += elapsed;
+      if (controls.UI_DOWN_R #if mobile || SwipeUtil.swipeUp #end)
       {
         holdTmrDown = 0;
         spamDown = false;
@@ -754,7 +754,7 @@ class CharSelectSubState extends MusicBeatSubState
       if (holdTmrLeft >= initSpam) spamLeft = true;
       if (holdTmrRight >= initSpam) spamRight = true;
 
-      if (controls.UI_UP_P #if mobile || SwipeUtil.swipeUp #end)
+      if (controls.UI_UP_P #if mobile || SwipeUtil.swipeDown #end)
       {
         cursorY -= 1;
         cursorDenied.visible = false;
@@ -763,7 +763,7 @@ class CharSelectSubState extends MusicBeatSubState
 
         selectSound.play(true);
       }
-      if (controls.UI_DOWN_P #if mobile || SwipeUtil.swipeDown #end)
+      if (controls.UI_DOWN_P #if mobile || SwipeUtil.swipeUp #end)
       {
         cursorY += 1;
         cursorDenied.visible = false;

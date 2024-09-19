@@ -59,7 +59,7 @@ class SwipeUtil
     #if FLX_POINTER_INPUT
     for (swipe in FlxG.swipes)
     {
-      if (swipe.degrees > -135 && swipe.degrees < -45 && swipe.distance > 20) return true;
+      return (swipe.degrees > -135 && swipe.degrees < -45 && swipe.distance > 20);
     }
     #end
 
@@ -77,7 +77,7 @@ class SwipeUtil
     #if FLX_POINTER_INPUT
     for (swipe in FlxG.swipes)
     {
-      if ((swipe.degrees > 135 || swipe.degrees < -135) && swipe.distance > 20) return true;
+      return ((swipe.degrees > 135 || swipe.degrees < -135) && swipe.distance > 20);
     }
     #end
 
@@ -95,7 +95,7 @@ class SwipeUtil
     #if FLX_POINTER_INPUT
     for (swipe in FlxG.swipes)
     {
-      if (swipe.degrees > -45 && swipe.degrees < 45 && swipe.distance > 20) return true;
+      return (swipe.degrees > -45 && swipe.degrees < 45 && swipe.distance > 20);
     }
     #end
 
@@ -113,7 +113,7 @@ class SwipeUtil
     #if FLX_POINTER_INPUT
     for (swipe in FlxG.swipes)
     {
-      if (swipe.degrees > 45 && swipe.degrees < 135 && swipe.distance > 20) return true;
+      return (swipe.degrees > 45 && swipe.degrees < 135 && swipe.distance > 20);
     }
     #end
 

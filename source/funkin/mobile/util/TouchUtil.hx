@@ -184,6 +184,7 @@ class TouchUtil
     }
 
     return FlxG.touches.getFirst();
+    // what?
     #else
     return null;
     #end

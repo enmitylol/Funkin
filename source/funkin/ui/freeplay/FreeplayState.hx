@@ -896,7 +896,7 @@ class FreeplayState extends MusicBeatSubState
           return str.songName.toLowerCase().startsWith(songFilter.filterData ?? '');
         });
       case ALL:
-        // no filter!
+      // no filter!
       case FAVORITE:
         songsToFilter = songsToFilter.filter(str -> {
           if (str == null) return true; // Random
@@ -1422,9 +1422,7 @@ class FreeplayState extends MusicBeatSubState
     // }
     #end // ^<-- FEATURE_DEBUG_FUNCTIONS
 
-    if (controls.FREEPLAY_CHAR_SELECT 
-        #if mobile || TouchUtil.overlapsComplex(dj) && TouchUtil.justPressed #end 
-        && !busy)
+    if (controls.FREEPLAY_CHAR_SELECT #if mobile || TouchUtil.overlapsComplex(dj) && TouchUtil.justPressed #end && !busy)
     {
       tryOpenCharSelect();
     }
@@ -1527,8 +1525,9 @@ class FreeplayState extends MusicBeatSubState
   {
     if (busy) return;
 
-    var upP:Bool = (controls.UI_UP_P #if mobile || SwipeUtil.swipeUp #end);
-    var downP:Bool = (controls.UI_DOWN_P #if mobile || SwipeUtil.swipeDown #end);
+    // This is seriously too long.
+    final upP:Bool = (controls.UI_UP_P #if mobile || SwipeUtil.swipeUp #end);
+    final downP:Bool = (controls.UI_DOWN_P #if mobile || SwipeUtil.swipeDown #end);
     var accepted:Bool = (controls.ACCEPT #if mobile
       || (FlxG.pixelPerfectOverlap(touchBuddy, grpCapsules.members[curSelected].capsule, 0)
         && TouchUtil.justReleased
@@ -1538,7 +1537,7 @@ class FreeplayState extends MusicBeatSubState
     if (TouchUtil.pressed) touchBuddy.setPosition(TouchUtil.touch.screenX, TouchUtil.touch.screenY);
     #end
 
-    if ((controls.UI_UP #if mobile || SwipeUtil.swipeUp #end) || (controls.UI_DOWN #if mobile || SwipeUtil.swipeDown #end))
+    if (upP || downP)
     {
       if (spamming)
       {
@@ -1546,7 +1545,7 @@ class FreeplayState extends MusicBeatSubState
         {
           spamTimer = 0;
 
-          if (controls.UI_UP #if mobile || SwipeUtil.swipeUp #end)
+          if (upP)
           {
             changeSelection(-1);
           }
@@ -1562,7 +1561,7 @@ class FreeplayState extends MusicBeatSubState
       }
       else if (spamTimer <= 0)
       {
-        if (controls.UI_UP #if mobile || SwipeUtil.swipeUp #end)
+        if (upP)
         {
           changeSelection(-1);
         }
@@ -1581,22 +1580,13 @@ class FreeplayState extends MusicBeatSubState
       spamTimer = 0;
     }
 
-    #if !html5
+    #if desktop
+    final wheelFactor:Float = #if !html5 1 #else 1 / 8 #end;
+
     if (FlxG.mouse.wheel != 0)
     {
       if (dj != null) dj.resetAFKTimer();
-      changeSelection(-Math.round(FlxG.mouse.wheel));
-    }
-    #else
-    if (FlxG.mouse.wheel < 0)
-    {
-      if (dj != null) dj.resetAFKTimer();
-      changeSelection(-Math.round(FlxG.mouse.wheel / 8));
-    }
-    else if (FlxG.mouse.wheel > 0)
-    {
-      if (dj != null) dj.resetAFKTimer();
-      changeSelection(-Math.round(FlxG.mouse.wheel / 8));
+      changeSelection(-Math.round(FlxG.mouse.wheel * wheelFactor));
     }
     #end
 

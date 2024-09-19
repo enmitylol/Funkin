@@ -7,6 +7,7 @@ import flixel.FlxObject;
 #if FLX_TOUCH
 import flixel.input.touch.FlxTouch;
 #end
+import flixel.math.FlxPoint;
 
 /**
  * Utility class for handling touch input within the FlxG context.

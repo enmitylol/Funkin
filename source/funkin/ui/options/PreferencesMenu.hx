@@ -133,19 +133,15 @@ class PreferencesMenu extends Page
     });
 
     #if mobile
-    if (TouchUtil.touch != null)
+    if (items.enabled
+      && !items.busy
+      && TouchUtil.justReleased
+      && !SwipeUtil.swipeAny
+      && (TouchUtil.touch != null
+        && TouchUtil.overlapsComplexPoint(items.selectedItem,
+          FlxPoint.weak(TouchUtil.touch.x, TouchUtil.touch.y + camFollow.y - ((items.selectedIndex == 0) ? 20 : 130)), false, menuCamera)))
     {
-      // I have tried EVERY. SINGLE. METHOD. UNDER THE MOON. This is the only way it can work, I've tried everything trust me.
-      final thePosToCheck:FlxPoint = new FlxPoint(TouchUtil.touch.x, TouchUtil.touch.y + camFollow.y - ((items.selectedIndex == 0) ? 20 : 130));
-
-      if (items.enabled
-        && !items.busy
-        && TouchUtil.justReleased
-        && !SwipeUtil.swipeAny
-        && items.selectedItem.overlapsPoint(thePosToCheck, false, menuCamera))
-      {
-        items.accept();
-      }
+      items.accept();
     }
     #end
   }

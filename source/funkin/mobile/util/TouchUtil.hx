@@ -110,7 +110,7 @@ class TouchUtil
         @:privateAccess
         if (object.overlapsPoint(point, true, camera))
         {
-          point.put();
+          point.putWeak();
 
           return true;
         }
@@ -121,14 +121,14 @@ class TouchUtil
       @:privateAccess
       if (object.overlapsPoint(point, true, camera))
       {
-        point.put();
+        point.putWeak();
 
         return true;
       }
     }
     #end
 
-    point.put();
+    point.putWeak();
 
     return false;
   }

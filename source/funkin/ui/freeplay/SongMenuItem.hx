@@ -25,8 +25,10 @@ import funkin.save.Save;
 import funkin.save.Save.SaveScoreData;
 import flixel.util.FlxColor;
 import funkin.ui.PixelatedIcon;
+#if mobile
 import funkin.mobile.util.TouchUtil;
 import funkin.mobile.util.SwipeUtil;
+#end
 
 using StringTools;
 
@@ -87,7 +89,9 @@ class SongMenuItem extends FlxSpriteGroup
 
   var sparkleTimer:FlxTimer;
 
+  #if mobile
   public var theActualHitbox:FlxSprite;
+  #end
 
   public function new(x:Float, y:Float)
   {
@@ -239,9 +243,11 @@ class SongMenuItem extends FlxSpriteGroup
 
     setVisibleGrp(false);
 
-    theActualHitbox = new FlxSprite(capsule.x + 140, capsule.y - 40);
-    theActualHitbox.makeGraphic(Std.int(capsule.width / 1.4), Std.int(capsule.height / 1.4), FlxColor.GREEN);
+    #if mobile
+    theActualHitbox = new FlxSprite(capsule.x + 140, capsule.y - 40).makeGraphic(Std.int(capsule.width / 1.4), Std.int(capsule.height / 1.4), FlxColor.TRANSPARENT);
+    theActualHitbox.active = false;
     add(theActualHitbox);
+    #end
   }
 
   function sparkleEffect(timer:FlxTimer):Void
@@ -614,11 +620,10 @@ class SongMenuItem extends FlxSpriteGroup
   override function update(elapsed:Float):Void
   {
     if (impactThing != null) impactThing.angle = capsule.angle;
-    if (!FlxG.mouse.visible) FlxG.mouse.visible = true;
-    // theActualHitbox.updateHitbox();
-    // if (selected && TouchUtil.overlapsComplex(theActualHitbox)) trace("SMALL YELLL DETEETCTTCTED");
 
-    if (selected && TouchUtil.overlaps(theActualHitbox) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
+    #if mobile
+    if (selected && TouchUtil.overlapsComplex(theActualHitbox) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
+    #end
 
     if (doJumpIn)
     {

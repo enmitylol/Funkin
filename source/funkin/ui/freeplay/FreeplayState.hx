@@ -1267,6 +1267,11 @@ class FreeplayState extends MusicBeatSubState
           });
       }
     }
+
+    #if mobile
+    FlxTween.tween(backButton, {y: FlxG.height, alpha: 0.0001}, FlxG.random.float(0.8, 0.85), {ease: FlxEase.backIn});
+    #end
+
     fadeShader.fade(1.0, 0.0, 0.8, {ease: FlxEase.quadIn});
     FlxG.sound.music.fadeOut(0.9, 0);
     new FlxTimer().start(0.9, _ -> {
@@ -1667,7 +1672,7 @@ class FreeplayState extends MusicBeatSubState
     FunkinSound.playOnce(Paths.sound('cancelMenu'));
 
     #if mobile
-    FlxTween.tween(backButton, {x: FlxG.width * 0.96}, FlxG.random.float(0.5, 0.95), {ease: FlxEase.backIn});
+    FlxTween.tween(backButton, {y: FlxG.height}, FlxG.random.float(0.2, 0.5), {ease: FlxEase.backIn});
     #end
 
     var longestTimer:Float = 0;

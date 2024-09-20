@@ -25,6 +25,10 @@ import funkin.save.Save;
 import funkin.save.Save.SaveScoreData;
 import flixel.util.FlxColor;
 import funkin.ui.PixelatedIcon;
+import funkin.mobile.util.TouchUtil;
+import funkin.mobile.util.SwipeUtil;
+
+using StringTools;
 
 class SongMenuItem extends FlxSpriteGroup
 {
@@ -82,6 +86,8 @@ class SongMenuItem extends FlxSpriteGroup
   public var sparkle:FlxSprite;
 
   var sparkleTimer:FlxTimer;
+
+  public var theActualHitbox:FlxSprite;
 
   public function new(x:Float, y:Float)
   {
@@ -232,6 +238,10 @@ class SongMenuItem extends FlxSpriteGroup
     weekNumbers.push(weekNumber);
 
     setVisibleGrp(false);
+
+    theActualHitbox = new FlxSprite(capsule.x + 140, capsule.y - 40);
+    theActualHitbox.makeGraphic(Std.int(capsule.width / 1.4), Std.int(capsule.height / 1.4), FlxColor.GREEN);
+    add(theActualHitbox);
   }
 
   function sparkleEffect(timer:FlxTimer):Void
@@ -604,27 +614,12 @@ class SongMenuItem extends FlxSpriteGroup
   override function update(elapsed:Float):Void
   {
     if (impactThing != null) impactThing.angle = capsule.angle;
+    if (!FlxG.mouse.visible) FlxG.mouse.visible = true;
+    // theActualHitbox.updateHitbox();
+    // if (selected && TouchUtil.overlapsComplex(theActualHitbox)) trace("SMALL YELLL DETEETCTTCTED");
 
-    // if (FlxG.keys.justPressed.I)
-    // {
-    //   newText.y -= 1;
-    //   trace(this.x - newText.x, this.y - newText.y);
-    // }
-    // if (FlxG.keys.justPressed.J)
-    // {
-    //   newText.x -= 1;
-    //   trace(this.x - newText.x, this.y - newText.y);
-    // }
-    // if (FlxG.keys.justPressed.L)
-    // {
-    //   newText.x += 1;
-    //   trace(this.x - newText.x, this.y - newText.y);
-    // }
-    // if (FlxG.keys.justPressed.K)
-    // {
-    //   newText.y += 1;
-    //   trace(this.x - newText.x, this.y - newText.y);
-    // }
+    if (selected && TouchUtil.overlaps(theActualHitbox) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
+
     if (doJumpIn)
     {
       frameInTicker += elapsed;
@@ -738,7 +733,7 @@ class FreeplayRank extends FlxSprite
       switch (val)
       {
         case SHIT:
-          // offset.x -= 1;
+        // offset.x -= 1;
         case GOOD:
           // offset.x -= 1;
           offset.y -= 8;
@@ -746,11 +741,11 @@ class FreeplayRank extends FlxSprite
           // offset.x -= 1;
           offset.y -= 8;
         case EXCELLENT:
-          // offset.y += 5;
+        // offset.y += 5;
         case PERFECT:
-          // offset.y += 5;
+        // offset.y += 5;
         case PERFECT_GOLD:
-          // offset.y += 5;
+        // offset.y += 5;
         default:
           centerOffsets(false);
           this.visible = false;
@@ -807,9 +802,9 @@ class CapsuleNumber extends FlxSprite
       case 6:
 
       case 4:
-        // offset.y += 5;
+      // offset.y += 5;
       case 9:
-        // offset.y += 5;
+      // offset.y += 5;
       default:
         centerOffsets(false);
     }

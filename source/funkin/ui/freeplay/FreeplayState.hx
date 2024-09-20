@@ -1269,7 +1269,7 @@ class FreeplayState extends MusicBeatSubState
     }
 
     #if mobile
-    FlxTween.tween(backButton, {y: FlxG.height, alpha: 0.0001}, FlxG.random.float(0.8, 0.85), {ease: FlxEase.backIn});
+    FlxTween.tween(backButton, {y: FlxG.height, alpha: 0.0001}, FlxG.random.float(0.2, 0.85), {ease: FlxEase.backIn});
     #end
 
     fadeShader.fade(1.0, 0.0, 0.8, {ease: FlxEase.quadIn});

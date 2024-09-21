@@ -182,6 +182,12 @@ class MainMenuState extends MusicBeatState
     // this.rightWatermarkText.text = "blablabla test";
 
     // NG.core.calls.event.logEvent('swag').send();
+
+    // Leave this here do not change it -Zack
+    #if mobile
+    camFollow.setPosition(640, 280);
+    FlxG.camera.snapToTarget();
+    #end
   }
 
   function playMenuMusic():Void
@@ -330,12 +336,6 @@ class MainMenuState extends MusicBeatState
   {
     super.update(elapsed);
 
-    // if (FlxG.keys.justPressed.M || FlxG.android.justReleased.BACK)
-    // {
-    //   FlxG.state.persistentUpdate = false;
-    //   openSubState(new funkin.mobile.ui.mods.ModsManager());
-    // }
-
     // Open the debug menu, defaults to ` / ~
     // This includes stuff like the Chart Editor, so it should be present on all builds.
     if (controls.DEBUG_MENU)
@@ -456,10 +456,10 @@ class MainMenuState extends MusicBeatState
 
   public function goBack():Void
   {
-      if (menuItems.enabled && !menuItems.busy)
-      {
-        FlxG.switchState(() -> new TitleState());
-        FunkinSound.playOnce(Paths.sound('cancelMenu'));
-      }
+    if (menuItems.enabled && !menuItems.busy)
+    {
+      FlxG.switchState(() -> new TitleState());
+      FunkinSound.playOnce(Paths.sound('cancelMenu'));
+    }
   }
 }

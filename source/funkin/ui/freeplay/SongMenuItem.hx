@@ -89,7 +89,7 @@ class SongMenuItem extends FlxSpriteGroup
 
   var sparkleTimer:FlxTimer;
 
-  // #if mobile
+  #if mobile
   public var theActualHitbox:FlxSprite;
   #end
 
@@ -244,7 +244,8 @@ class SongMenuItem extends FlxSpriteGroup
     setVisibleGrp(false);
 
     #if mobile
-    theActualHitbox = new FlxSprite(capsule.x + 140, capsule.y - 40).makeGraphic(Std.int(capsule.width / 1.4), Std.int(capsule.height / 1.4), FlxColor.TRANSPARENT);
+    theActualHitbox = new FlxSprite(capsule.x + 140,
+      capsule.y - 40).makeGraphic(Std.int(capsule.width / 1.4), Std.int(capsule.height / 1.4), FlxColor.TRANSPARENT);
     theActualHitbox.active = false;
     add(theActualHitbox);
     #end
@@ -620,11 +621,10 @@ class SongMenuItem extends FlxSpriteGroup
   override function update(elapsed:Float):Void
   {
     if (impactThing != null) impactThing.angle = capsule.angle;
-    FlxG.mouse.visible = true;
 
-    // #if mobile
+    #if mobile
     if (selected && TouchUtil.overlaps(theActualHitbox, camera) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
-    // #end
+    #end
 
     if (doJumpIn)
     {
@@ -739,7 +739,7 @@ class FreeplayRank extends FlxSprite
       switch (val)
       {
         case SHIT:
-        // offset.x -= 1;
+          // offset.x -= 1;
         case GOOD:
           // offset.x -= 1;
           offset.y -= 8;
@@ -747,11 +747,11 @@ class FreeplayRank extends FlxSprite
           // offset.x -= 1;
           offset.y -= 8;
         case EXCELLENT:
-        // offset.y += 5;
+          // offset.y += 5;
         case PERFECT:
-        // offset.y += 5;
+          // offset.y += 5;
         case PERFECT_GOLD:
-        // offset.y += 5;
+          // offset.y += 5;
         default:
           centerOffsets(false);
           this.visible = false;
@@ -808,9 +808,9 @@ class CapsuleNumber extends FlxSprite
       case 6:
 
       case 4:
-      // offset.y += 5;
+        // offset.y += 5;
       case 9:
-      // offset.y += 5;
+        // offset.y += 5;
       default:
         centerOffsets(false);
     }

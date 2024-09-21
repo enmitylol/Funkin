@@ -896,7 +896,7 @@ class FreeplayState extends MusicBeatSubState
           return str.songName.toLowerCase().startsWith(songFilter.filterData ?? '');
         });
       case ALL:
-      // no filter!
+        // no filter!
       case FAVORITE:
         songsToFilter = songsToFilter.filter(str -> {
           if (str == null) return true; // Random

@@ -89,7 +89,7 @@ class SongMenuItem extends FlxSpriteGroup
 
   var sparkleTimer:FlxTimer;
 
-  #if mobile
+  // #if mobile
   public var theActualHitbox:FlxSprite;
   #end
 
@@ -620,10 +620,11 @@ class SongMenuItem extends FlxSpriteGroup
   override function update(elapsed:Float):Void
   {
     if (impactThing != null) impactThing.angle = capsule.angle;
+    FlxG.mouse.visible = true;
 
-    #if mobile
-    if (selected && TouchUtil.overlapsComplex(theActualHitbox) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
-    #end
+    // #if mobile
+    if (selected && TouchUtil.overlaps(theActualHitbox, camera) && !SwipeUtil.swipeAny && TouchUtil.justReleased) onConfirm();
+    // #end
 
     if (doJumpIn)
     {
